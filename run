@@ -1,0 +1,6 @@
+#!/bin/zsh
+set -euo pipefail
+
+g++ simd.cpp std.asm simd.asm
+./a.out
+rm a.out
