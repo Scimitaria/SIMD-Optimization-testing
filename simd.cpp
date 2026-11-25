@@ -9,7 +9,7 @@ auto time(Func func){
     auto start = std::chrono::steady_clock::now();
     func();
     auto end = std::chrono::steady_clock::now();
-    return std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
+    return std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
 }
 template <typename Func>
 void compare(Func cpp, Func assembly, Func simd){

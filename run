@@ -1,6 +1,6 @@
 #!/bin/zsh
 set -euo pipefail
 
-g++ simd.cpp std.asm simd.asm
+g++ -nostartfiles simd.cpp print.asm print-simd.asm std.asm simd.asm
 ./a.out
 rm a.out
