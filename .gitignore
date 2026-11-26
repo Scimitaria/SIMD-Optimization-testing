@@ -1,4 +1,5 @@
 .DS_Store
+std
 simd
 
 # Compiled Object files

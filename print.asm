@@ -19,7 +19,7 @@ _itoa:
         CBNZ X2, itoa_loop
 
         ADD X6, X6, 1       //append
-        MOV W11, 0x0A       //w5=' '
+        MOV W11, 0x20       //w5=' '
         STRB W11, [X6, X7] //append newline to string
         ADD X7, X7, 1    //append
 
@@ -33,3 +33,18 @@ _itoa:
     return:
         ADD SP, SP, 32
         RET
+    
+.global _newline
+_newline:
+    SUB SP,SP,16
+
+    MOV W8,0x0A
+    strb W8, [sp]
+    MOV X0, 1   //stdout
+    MOV X1, SP //point to stack
+    MOV X2, 1 //write 1 byte
+    MOV X4,16//write
+    SVC 0x80
+
+    ADD SP,SP,16
+    RET

@@ -1,9 +1,8 @@
 .data
   c: .space 32
 .text
-  a: .word 4,2,5,8,6,3,7,9
-  b: .word 9,5,2,3,7,8,4,6
-
+  a: .word 4,2,5,8,6,3,7,1
+  b: .word 3,6,2,4,2,3,1,5
 //.global _main
 _main:
     STP X29, X30, [SP, -32]!
@@ -23,12 +22,27 @@ _main:
     CMP X20, 32
     B.LT print_loop
 
-    MOV W0, 0 // exit status
-    LDP X19, X20, [SP, 16]
-    LDP X29, X30, [SP], 32
-    RET
+  BL _newline
+  BL _Shift_ASM_
+  ADRP X19, c@PAGE
+  ADD  X19, X19, c@PAGEOFF
+  MOV  X20, 0 // byte offset
 
-.global _Add_ASM_
+  print_loop2:
+    LDR W2, [X19, X20]
+    BL _itoa
+    ADD X20, X20, 4
+    CMP X20, 32
+    B.LT print_loop2
+    
+  BL _newline
+
+  MOV W0, 0 // exit status
+  LDP X19, X20, [SP, 16]
+  LDP X29, X30, [SP], 32
+  RET
+
+.global _Add_ASM_//why are you so slow
 _Add_ASM_:
     ADR  X9, a
     ADR  X10, b
@@ -44,4 +58,23 @@ _Add_ASM_:
     ADD X12, X12, 4
     CMP X12, 32
     B.LT add_loop
+    RET
+
+.global _Shift_ASM_
+  s: .word 3,6,2,4,2,3,1,5
+_Shift_ASM_:
+    ADR  X9, a
+    ADR  X10, s
+    ADRP X11, c@PAGE
+    ADD  X11, X11, c@PAGEOFF
+    MOV  X12, 0
+
+  shift_loop:
+    LDR W3, [X9, X12]
+    LDR W4, [X10, X12]
+    LSL W2, W3, W4
+    STR W2, [X11, X12]
+    ADD X12, X12, 4
+    CMP X12, 32
+    B.LT shift_loop
     RET
