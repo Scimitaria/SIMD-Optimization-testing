@@ -42,7 +42,7 @@ _main:
   LDP X29, X30, [SP], 32
   RET
 
-.global _Add_ASM_//why are you so slow
+.global _Add_ASM_
 _Add_ASM_:
     ADR  X9, a
     ADR  X10, b

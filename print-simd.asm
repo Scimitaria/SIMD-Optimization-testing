@@ -3,7 +3,7 @@
 
 .section __TEXT,__cstring,cstring_literals
 fmt:
-    .asciz "v2.8b: [%02x, %02x, %02x, %02x, %02x, %02x, %02x, %02x]\n"
+    .asciz "v2.8b: [%3d, %3d, %3d, %3d, %3d, %3d, %3d, %3d]\n"
 .text
 .global _print_V8b
 _print_V8b:

@@ -15,7 +15,7 @@ auto time(Func func){
 }
 template <typename Func>
 void compare(Func cpp, Func assembly, Func simd){
-    std::printf(" %05.1f | %05.1f | %05.1f\n", time(cpp), time(assembly), time(simd));
+    std::printf(" %5.1f | %5.1f | %5.1f\n", time(cpp), time(assembly), time(simd));
     return;
 }
 
