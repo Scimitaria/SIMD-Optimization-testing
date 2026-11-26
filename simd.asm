@@ -12,6 +12,9 @@ _main:
   BL _Shift_SIMD_
   BL _print_V8b
 
+  BL _Mult_SIMD_
+  BL _print_V8b
+
   MOV W0,0
   LDP X29, X30, [SP], 32
   RET
@@ -38,5 +41,16 @@ _Shift_SIMD_:
     LD1 {V1.8b}, [X0]
 
     USHL V2.8b,V0.8b,V1.8b
+
+    RET
+
+.global _Mult_SIMD_
+_Mult_SIMD_:
+    ADR X0,a
+    LD1 {V0.8b}, [X0]
+    ADR X0,b
+    LD1 {V1.8b}, [X0]
+
+    MUL V2.8b,V0.8b,V1.8b
 
     RET

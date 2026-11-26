@@ -1,7 +1,24 @@
 .text
 .align 4
 //Prints X2
-.global _itoa
+//X27 is array length
+.global _print
+_print:
+  STP X28, X30, [SP, -32]!
+  MOV X28, SP
+
+  MOV X20,0 //byte offset
+  print_loop:
+    LDR W2, [X19, X20]
+    BL _itoa
+    ADD X20, X20, 4
+    CMP X20, X27
+    B.LT print_loop
+  BL _newline
+
+  LDP X28, X30, [SP], 32
+  RET
+
 _itoa:
     SUB SP, SP, 32
     ADD X6, SP, 30
@@ -34,7 +51,7 @@ _itoa:
         ADD SP, SP, 32
         RET
     
-.global _newline
+
 _newline:
     SUB SP,SP,16
 

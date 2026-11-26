@@ -38,15 +38,25 @@ void shift(){
 extern "C" void Shift_ASM_();
 extern "C" void Shift_SIMD_();
 
+void mult(){
+    int a[8] = {4,2,5,8,6,3,7,1};
+    int b[8] = {3,6,2,4,2,3,1,5};
+    int c[8];
+    for(int i=0;i<8;i++) c[i]=a[i]*b[i];
+}
+extern "C" void Mult_ASM_();
+extern "C" void Mult_SIMD_();
+
 
 int main(){
     cout << " Prog  |  C++  |  ASM  |  SIMD\n";
     cout << "------------------------------\n";
     cout << "Add:   |";
     compare(add,Add_ASM_,Add_SIMD_);
-    shift();
     cout << "Shift: |";
     compare(shift,Shift_ASM_,Shift_SIMD_);
+    cout << "Mult:  |";//TODO
+    compare(mult,Mult_ASM_,Mult_SIMD_);
 
     return 0;
 }
